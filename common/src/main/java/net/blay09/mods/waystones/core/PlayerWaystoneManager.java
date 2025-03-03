@@ -303,7 +303,7 @@ public class PlayerWaystoneManager {
                 case INVENTORY_BUTTON ->
                         getPlayerWaystoneData(level).setInventoryButtonCooldownUntil(player, System.currentTimeMillis() + cooldown * 1000L);
                 case WARP_STONE -> getPlayerWaystoneData(level).setWarpStoneCooldownUntil(player, System.currentTimeMillis() + cooldown * 1000L);
-                default -> getPlayerWaystoneData(level).setWaystoneCooldownUntil(player, System.currentTimeMillis() + cooldown * 100L);
+                default -> getPlayerWaystoneData(level).setWaystoneCooldownUntil(player, System.currentTimeMillis() + cooldown * 1000L);
             }
             WaystoneSyncManager.sendWaystoneCooldowns(player);
         }
