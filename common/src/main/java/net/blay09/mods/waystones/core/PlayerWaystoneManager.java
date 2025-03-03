@@ -193,6 +193,10 @@ public class PlayerWaystoneManager {
     public static boolean canUseWarpStone(Player player, ItemStack heldItem) {
         return getWarpStoneCooldownLeft(player) <= 0;
     }
+    
+    public static boolean canUseWaystone(Player player, ItemStack heldItem) {
+        return getWaytoneCooldownLeft(player) <= 0;
+    }
 
     public static double getCooldownMultiplier(IWaystone waystone) {
         return waystone.isGlobal() ? WaystonesConfig.getActive().cooldowns.globalWaystoneCooldownMultiplier : 1f;
