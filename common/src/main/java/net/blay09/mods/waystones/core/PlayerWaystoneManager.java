@@ -516,6 +516,19 @@ public class PlayerWaystoneManager {
         return Math.max(0, cooldownUntil - System.currentTimeMillis());
     }
 
+    public static void setWaystoneCooldownUntil(Player player, long timeStamp) {
+        getPlayerWaystoneData(player.level()).setWaystoneCooldownUntil(player, timeStamp);
+    }
+
+    public static long getWaystoneCooldownUntil(Player player) {
+        return getPlayerWaystoneData(player.level()).getWaystoneCooldownUntil(player);
+    }
+
+    public static long getWarpStoneCooldownLeft(Player player) {
+        long cooldownUntil = getWarpStoneCooldownUntil(player);
+        return Math.max(0, cooldownUntil - System.currentTimeMillis());
+    }
+
     public static void setWarpStoneCooldownUntil(Player player, long timeStamp) {
         getPlayerWaystoneData(player.level()).setWarpStoneCooldownUntil(player, timeStamp);
     }
