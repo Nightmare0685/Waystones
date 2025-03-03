@@ -195,7 +195,7 @@ public class PlayerWaystoneManager {
     }
     
     public static boolean canUseWaystone(Player player, ItemStack heldItem) {
-        return getWaytoneCooldownLeft(player) <= 0;
+        return getWayStoneCooldownLeft(player) <= 0;
     }
 
     public static double getCooldownMultiplier(IWaystone waystone) {
