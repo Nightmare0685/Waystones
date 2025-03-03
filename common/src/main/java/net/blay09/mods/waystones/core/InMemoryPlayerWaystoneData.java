@@ -10,6 +10,7 @@ public class InMemoryPlayerWaystoneData implements IPlayerWaystoneData {
     private final Map<UUID, IWaystone> waystones = new HashMap<>();
     private long warpStoneCooldownUntil;
     private long inventoryButtonCooldownUntil;
+    private long waystoneCooldownUntil;
 
     @Override
     public void activateWaystone(Player player, IWaystone waystone) {
@@ -37,7 +38,17 @@ public class InMemoryPlayerWaystoneData implements IPlayerWaystoneData {
     public void setWarpStoneCooldownUntil(Player player, long timeStamp) {
         warpStoneCooldownUntil = timeStamp;
     }
+    
+     @Override
+    public long getWaystoneCooldownUntil(Player player) {
+        return waystoneCooldownUntil;
+    }
 
+    @Override
+    public void setWaystoneCooldownUntil(Player player, long timeStamp) {
+        waystoneCooldownUntil = timeStamp;
+    }
+    
     @Override
     public long getInventoryButtonCooldownUntil(Player player) {
         return inventoryButtonCooldownUntil;
