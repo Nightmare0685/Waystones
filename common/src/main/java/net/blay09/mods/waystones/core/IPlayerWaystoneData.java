@@ -11,6 +11,8 @@ public interface IPlayerWaystoneData {
     void deactivateWaystone(Player player, IWaystone waystone);
     long getWarpStoneCooldownUntil(Player player);
     void setWarpStoneCooldownUntil(Player player, long timeStamp);
+    long getWaystoneCooldownUntil(Player player);
+    void serWaystoneCooldownUntil(Player player, long timeStamp);
     long getInventoryButtonCooldownUntil(Player player);
     void setInventoryButtonCooldownUntil(Player player, long timeStamp);
     List<IWaystone> getWaystones(Player player);
