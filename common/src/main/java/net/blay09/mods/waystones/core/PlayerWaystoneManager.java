@@ -303,6 +303,7 @@ public class PlayerWaystoneManager {
                 case INVENTORY_BUTTON ->
                         getPlayerWaystoneData(level).setInventoryButtonCooldownUntil(player, System.currentTimeMillis() + cooldown * 1000L);
                 case WARP_STONE -> getPlayerWaystoneData(level).setWarpStoneCooldownUntil(player, System.currentTimeMillis() + cooldown * 1000L);
+                default -> getPlayerWaystoneData(level).setWaystoneCooldownUntil(player, System.currentTimeMillis() + cooldown * 100L);
             }
             WaystoneSyncManager.sendWaystoneCooldowns(player);
         }
@@ -316,7 +317,7 @@ public class PlayerWaystoneManager {
         return switch (warpMode) {
             case INVENTORY_BUTTON -> WaystonesConfig.getActive().cooldowns.inventoryButtonCooldown;
             case WARP_STONE -> WaystonesConfig.getActive().cooldowns.warpStoneCooldown;
-            default -> 0;
+            default -> ;
         };
     }
 
@@ -502,10 +503,10 @@ public class PlayerWaystoneManager {
                     && PlayerWaystoneManager.canUseWarpStone(((Player) entity), heldItem);
             case WAYSTONE_TO_WAYSTONE -> WaystonesConfig.getActive()
                     .restrictions.allowWaystoneToWaystoneTeleport && fromWaystone != null && fromWaystone.isValid()
-                    && fromWaystone.getWaystoneType().equals(WaystoneTypes.WAYSTONE);
-            case SHARESTONE_TO_SHARESTONE -> fromWaystone != null && fromWaystone.isValid() && WaystoneTypes.isSharestone(fromWaystone.getWaystoneType());
-            case WARP_PLATE -> fromWaystone != null && fromWaystone.isValid() && fromWaystone.getWaystoneType().equals(WaystoneTypes.WARP_PLATE);
-            case PORTSTONE_TO_WAYSTONE -> fromWaystone != null && fromWaystone.isValid() && fromWaystone.getWaystoneType().equals(WaystoneTypes.PORTSTONE);
+                    && fromWaystone.getWaystoneType().equals(WaystoneTypes.WAYSTONE) && PlayerWaystoneManager.canUseWaystone((Player) entitiy);
+            case SHARESTONE_TO_SHARESTONE -> fromWaystone != null && fromWaystone.isValid() && WaystoneTypes.isSharestone(fromWaystone.getWaystoneType())  && PlayerWaystoneManager.canUseWaystone((Player) entitiy);
+            case WARP_PLATE -> fromWaystone != null && fromWaystone.isValid() && fromWaystone.getWaystoneType().equals(WaystoneTypes.WARP_PLATE)  && PlayerWaystoneManager.canUseWaystone((Player) entitiy);
+            case PORTSTONE_TO_WAYSTONE -> fromWaystone != null && fromWaystone.isValid() && fromWaystone.getWaystoneType().equals(WaystoneTypes.PORTSTONE)  && PlayerWaystoneManager.canUseWaystone((Player) entitiy);
             case CUSTOM -> true;
         };
 
@@ -528,8 +529,8 @@ public class PlayerWaystoneManager {
         return getPlayerWaystoneData(player.level()).getWaystoneCooldownUntil(player);
     }
 
-    public static long getWarpStoneCooldownLeft(Player player) {
-        long cooldownUntil = getWarpStoneCooldownUntil(player);
+    public static long getWaystoneCooldownLeft(Player player) {
+        long cooldownUntil = getWayStoneCooldownUntil(player);
         return Math.max(0, cooldownUntil - System.currentTimeMillis());
     }
 
