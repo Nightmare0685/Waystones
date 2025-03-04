@@ -49,6 +49,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+import java.lang.Math.pow;
 
 public class PlayerWaystoneManager {
 
@@ -235,6 +236,7 @@ public class PlayerWaystoneManager {
         final var waystone = context.getTargetWaystone();
         final var entity = context.getEntity();
         final var warpMode = context.getWarpMode();
+        
         if (!canUseWarpMode(entity, warpMode, context.getWarpItem(), context.getFromWaystone())) {
             return Either.right(new WaystoneTeleportError.WarpModeRejected());
         }
@@ -270,9 +272,14 @@ public class PlayerWaystoneManager {
         if (!context.getWarpItem().isEmpty() && event.getConsumeItemResult().withDefault(() -> !isCreativeMode && context.consumesWarpItem())) {
             context.getWarpItem().shrink(1);
         }
-
+        
+        BlockPos pos = waystone.getPos();
+        double dist = Math.sqrt(player.distanceToSqr(pos.getX(), player.getY(), pos.getZ()))\
+        if (context.isDimensionalTeleport()) dist = 0;
+        long cooldown = (long)(600L*Pow(2.0,dist/1500.0));
+    
         if (entity instanceof Player player) {
-            applyCooldown(warpMode, player, context.getCooldown());
+            applyCooldown(warpMode, player, cooldown);
             applyXpCost(player, context.getXpCost());
         }
 
