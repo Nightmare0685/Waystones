@@ -276,7 +276,7 @@ public class PlayerWaystoneManager {
         BlockPos pos = waystone.getPos();
         double dist = Math.sqrt(player.distanceToSqr(pos.getX(), player.getY(), pos.getZ()))\
         if (context.isDimensionalTeleport()) dist = 0;
-        long cooldown = (long)(600L*Pow(2.0,dist/1500.0));
+        long cooldown = (long)(600L*pow(2.0,dist/1500.0));
     
         if (entity instanceof Player player) {
             applyCooldown(warpMode, player, cooldown);
